@@ -31,14 +31,15 @@ class App extends Component {
       submitted: false,
       editMode: false,
       editFields: [],
-      typed: ''
+      typed: '',
+      change: []
     }
 
     //Handle Actions
     this._updateFireBaseRecord = this._updateFireBaseRecord.bind(this); //Updates the firebase record
     this._setFireBaseDataEditTable = this._setFireBaseDataEditTable.bind(this); //Sets the UUID we are going to modify
     this.onSubmit = this.onSubmit.bind(this);
-    //this.handleChange = this.handleChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     
   }
 
@@ -71,8 +72,11 @@ class App extends Component {
   //Allows us to edit the fields and set the data back to itself.
   //It's a ReactJS requirement
   //Here's a good reference: http://stackoverflow.com/questions/22220873/how-to-reload-input-value-in-react-javascript-with-virtual-dom
+
   handleChange(event){
-     this.setState({typed: event.target.value});
+     var change = {};
+     change[event.target.name] = event.target.value;
+     this.setState({editFields: change});
   }
 
   
@@ -170,10 +174,11 @@ class App extends Component {
   }
 
   render() {
+
+
    
     return (
       <div className="App">
-        {/*{output}*/}
         <FormView data={this} />
       </div>
     );
